@@ -20,7 +20,7 @@ if [[ -z "$RELENG" || ! -f "$RELENG/profiledef.sh" ]]; then
   echo "Could not locate the official archiso releng profile." >&2
   exit 1
 fi
-rm -rf "$PROFILE"
+mkdir -p "$(dirname -- "$PROFILE")"`nrm -rf "$PROFILE"
 cp -a "$RELENG" "$PROFILE"
 
 # Retain Arch's supported boot and live-session files; layer on the desktop package set.
@@ -51,5 +51,6 @@ ASTER_CUSTOMIZE
 chmod 755 "$CUSTOMIZE"
 mkdir -p "$OUT" "$WORK"
 mkarchiso -v -w "$WORK" -o "$OUT" "$PROFILE"
+
 
 
