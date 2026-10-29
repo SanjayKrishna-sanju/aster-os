@@ -1,0 +1,25 @@
+# Minimal XFCE desktop package additions to Arch's official releng live profile.
+xfce4
+xfce4-goodies
+xorg-server
+lightdm
+lightdm-gtk-greeter
+firefox
+thunar-archive-plugin
+file-roller
+mousepad
+xfce4-terminal
+xfce4-screenshooter
+pavucontrol
+pipewire
+pipewire-alsa
+pipewire-pulse
+wireplumber
+networkmanager
+network-manager-applet
+bluez
+bluez-utils
+blueman
+brightnessctl
+intel-ucode
+gvfs

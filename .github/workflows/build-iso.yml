@@ -1,0 +1,43 @@
+name: Build Aster OS ISO
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'profile/**'
+      - 'scripts/**'
+      - '.github/workflows/build-iso.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install Archiso
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --needed --noconfirm archiso
+
+      - name: Build image
+        run: bash scripts/build.sh
+
+      - name: Create checksum
+        run: cd out && sha256sum *.iso > SHA256SUMS
+
+      - name: Upload ISO and checksum
+        uses: actions/upload-artifact@v4
+        with:
+          name: aster-os-iso-${{ github.run_number }}
+          path: |
+            out/*.iso
+            out/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 7
